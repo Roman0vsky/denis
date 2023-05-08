@@ -1,0 +1,74 @@
+.ciphers {
+  display: flex;
+  flex-direction: column;
+}
+.ciphers__cipher_caesar-cipher {
+}
+.cipher {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.caesar-cipher {
+}
+.cipher__title {
+}
+.cipher__container {
+  display: flex;
+}
+.cipher__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+}
+.cipher__title-cipher {
+}
+.cipher__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form {
+}
+.form__errors{
+  max-width: 300px;
+  width: 100%;
+}
+.form__input {
+  font-size: 20px;
+  border: 2px solid orange;
+  border-radius: 4px;
+  background: black;
+  color: orange;
+  padding: 5px;
+  margin: 10px 0;
+  max-width: 300px;
+  width: 100%;
+}
+.form__input:focus {
+  outline: none;
+  box-shadow: 0 0 15px #dd3b3b;
+}
+.form__submit {
+  font-size: 20px;
+  border: 2px solid orange;
+  border-radius: 4px;
+  background: black;
+  color: orange;
+  padding: 5px;
+  margin: 10px 0;
+  width: 150px;
+}
+.form__submit:hover {
+  background: orange;
+  color: black;
+}
+.form__submit:active {
+  box-shadow: 0 0 15px #dd3b3b;
+}
+.form__result {
+  max-width: 300px;
+  width: 100%;
+  word-break: break-all;
+}
