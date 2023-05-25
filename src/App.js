@@ -3,12 +3,12 @@ import "./App.css";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <header>
         <nav>
-          <Link to="/main">Main</Link>
-          <Link to="/info">Info</Link>
-          <Link to="/training">Training</Link>
+          <Link to="/main">Главная</Link>
+          <Link to="/info">Информация</Link>
+          <Link to="/training">Тренажёр</Link>
         </nav>
       </header>
       <main>

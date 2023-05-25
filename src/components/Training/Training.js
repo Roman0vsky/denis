@@ -35,7 +35,6 @@ export default function Training() {
     "г",
     "д",
     "е",
-    "ё",
     "ж",
     "з",
     "и",
@@ -68,7 +67,6 @@ export default function Training() {
     "г",
     "д",
     "е",
-    "ё",
     "ж",
     "з",
     "и",
@@ -101,7 +99,6 @@ export default function Training() {
     "Г",
     "Д",
     "Е",
-    "Ё",
     "Ж",
     "З",
     "И",
@@ -134,7 +131,6 @@ export default function Training() {
     "Г",
     "Д",
     "Е",
-    "Ё",
     "Ж",
     "З",
     "И",
@@ -162,126 +158,20 @@ export default function Training() {
     "Ю",
     "Я",
   ];
-  const eng = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
 
   function caesarCipher(data) {
     let tempResult = "";
     let shift = +data.shift;
 
-    while (shift > 26) {
-      shift -= 26;
+    while (shift > 32) {
+      shift -= 32;
     }
 
     for (let i of data.text) {
-      if (eng.includes(i)) {
-        let place = eng.indexOf(i);
+      if (ru.includes(i)) {
+        let place = ru.indexOf(i);
         let new_place = place + shift;
-        tempResult += eng[new_place];
+        tempResult += ru[new_place];
       } else {
         tempResult += " ";
       }
@@ -293,15 +183,15 @@ export default function Training() {
     let tempResult = "";
     let shift = +data.shift;
 
-    while (shift > 26) {
-      shift -= 26;
+    while (shift > 32) {
+      shift -= 32;
     }
 
     for (let i of data.text) {
-      if (eng.includes(i)) {
-        let place = eng.lastIndexOf(i);
+      if (ru.includes(i)) {
+        let place = ru.lastIndexOf(i);
         let new_place = place - shift;
-        tempResult += eng[new_place];
+        tempResult += ru[new_place];
       } else {
         tempResult += " ";
       }
@@ -309,7 +199,7 @@ export default function Training() {
     return tempResult;
   }
   function vigenereCipher(data) {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     const numAlphabet = {};
     for (let i = 0; i < alphabet.length; i++) {
       numAlphabet[alphabet[i]] = i;
@@ -332,7 +222,7 @@ export default function Training() {
     return code;
   }
   function vigenereDecipher(data) {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     const numAlphabet = {};
     for (let i = 0; i < alphabet.length; i++) {
       numAlphabet[alphabet[i]] = i;
@@ -359,10 +249,10 @@ export default function Training() {
   return (
     <div className="ciphers">
       <div className="ciphers__cipher_caesar-cipher cipher caesar-cipher">
-        <p className="cipher__title">CAESAR CIPHER</p>
+        <p className="cipher__title">ШИФР ЦЕЗАРЯ</p>
         <div className="cipher__container">
           <div className="cipher__wrapper">
-            <p className="cipher__title-cipher">CIPHER</p>
+            <p className="cipher__title-cipher">ШИФРОВАНИЕ</p>
             <form
               onSubmit={handleSubmit((data) => {
                 setCaesarCipherResult(caesarCipher(data));
@@ -372,36 +262,40 @@ export default function Training() {
             >
               <input
                 {...register("text", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[a-zA-Z]([a-zA-Z\s]*)[a-zA-Z]*$/,
+                    value: /^[а-яА-Я]([а-яА-Я\s]*)[а-яА-Я]*$/,
                     message:
-                      "Text should contain only english letters and spaces",
+                      "Текст может содержать только русские буквы и пробелы",
                   },
                 })}
-                placeholder="Type text..."
+                placeholder="Введите текст..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors.text?.message}</p>
               <input
                 {...register("shift", {
-                  required: "This field is required",
-                  min: { value: 0, message: "Min value 0" },
+                  required: "Заполните поле",
+                  min: { value: 0, message: "Минимальное значение 0" },
                 })}
-                placeholder="Choose shift"
+                placeholder="Введите ключ..."
                 type="number"
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors.shift?.message}</p>
-              <input type="submit" value="Submit" className="form__submit" />
+              <input
+                type="submit"
+                value="Подтвердить"
+                className="form__submit"
+              />
             </form>
             <div className="form__result">{caesarCipherResult}</div>
           </div>
 
           <div className="cipher__wrapper">
-            <p className="cipher__title-cipher">DECIPHER</p>
+            <p className="cipher__title-cipher">ДЕШИФРОВАНИЕ</p>
             <form
               onSubmit={handleSubmit2((data) => {
                 setCaesarDecipherResult(caesarDecipher(data));
@@ -411,38 +305,42 @@ export default function Training() {
             >
               <input
                 {...register2("text", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[a-zA-Z]([a-zA-Z\s]*)[a-zA-Z]*$/,
+                    value: /^[а-яА-Я]([а-яА-Я\s]*)[а-яА-Я]*$/,
                     message:
-                      "Text should contain only english letters and spaces",
+                      "Текст может содержать только русские буквы и пробелы",
                   },
                 })}
-                placeholder="Type text..."
+                placeholder="Введите текст..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors2.text?.message}</p>
               <input
                 {...register2("shift", {
-                  required: "This field is required",
-                  min: { value: 0, message: "Min value 0" },
+                  required: "Заполните поле",
+                  min: { value: 0, message: "Минимальное значение 0" },
                 })}
-                placeholder="Choose shift"
+                placeholder="Введите ключ..."
                 type="number"
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors2.shift?.message}</p>
-              <input type="submit" value="Submit" className="form__submit" />
+              <input
+                type="submit"
+                value="Подтвердить"
+                className="form__submit"
+              />
             </form>
             <div className="form__result">{caesarDecipherResult}</div>
           </div>
         </div>
-        <p className="cipher__title">VIGENERE CIPHER</p>
+        <p className="cipher__title">ШИФР ВИЖЕНЕРА</p>
         <div className="cipher__container">
           <div className="cipher__wrapper">
-            <p className="cipher__title-cipher">CIPHER</p>
+            <p className="cipher__title-cipher">ШИФРОВАНИЕ</p>
             <form
               onSubmit={handleSubmit3((data) => {
                 setVigenereCipherResult(vigenereCipher(data));
@@ -452,39 +350,43 @@ export default function Training() {
             >
               <input
                 {...register3("text", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[A-Z]([A-Z\s]*)[A-Z]*$/,
+                    value: /^[А-Я]([А-Я\s]*)[А-Я]*$/,
                     message:
-                      "Text should contain only english capital letters and spaces",
+                      "Текст может содержать только заглавные русские буквы и пробелы",
                   },
                 })}
-                placeholder="Type text..."
+                placeholder="Введите текст..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors3.text?.message}</p>
               <input
                 {...register3("key", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[A-Z][A-Z]*$/,
+                    value: /^[А-Я][А-Я]*$/,
                     message:
-                    "Text should contain only english capital letters",
+                      "Текст может содержать только заглавные русские буквы",
                   },
                 })}
-                placeholder="Type key..."
+                placeholder="Введите ключ..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors3.key?.message}</p>
-              <input type="submit" value="Submit" className="form__submit" />
+              <input
+                type="submit"
+                value="Подтвердить"
+                className="form__submit"
+              />
             </form>
             <div className="form__result">{vigenereCipherResult}</div>
           </div>
 
           <div className="cipher__wrapper">
-            <p className="cipher__title-cipher">DECIPHER</p>
+            <p className="cipher__title-cipher">ДЕШИФРОВАНИЕ</p>
             <form
               onSubmit={handleSubmit4((data) => {
                 setVigenereDecipherResult(vigenereDecipher(data));
@@ -494,33 +396,37 @@ export default function Training() {
             >
               <input
                 {...register4("text", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[A-Z]([A-Z\s]*)[A-Z]*$/,
+                    value: /^[А-Я]([А-Я\s]*)[А-Я]*$/,
                     message:
-                      "Text should contain only english capital letters and spaces",
+                      "Текст может содержать только заглавные русские буквы и пробелы",
                   },
                 })}
-                placeholder="Type text..."
+                placeholder="Введите текст..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors4.text?.message}</p>
               <input
                 {...register4("key", {
-                  required: "This field is required",
+                  required: "Заполните поле",
                   pattern: {
-                    value: /^[A-Z][A-Z]*$/,
+                    value: /^[А-Я][А-Я]*$/,
                     message:
-                      "Text should contain only english capital letters",
+                      "Текст может содержать только заглавные русские буквы",
                   },
                 })}
-                placeholder="Choose shift"
+                placeholder="Введите ключ..."
                 autoComplete="off"
                 className="form__input"
               />
               <p className="form__errors">{errors4.key?.message}</p>
-              <input type="submit" value="Submit" className="form__submit" />
+              <input
+                type="submit"
+                value="Подтвердить"
+                className="form__submit"
+              />
             </form>
             <div className="form__result">{vigenereDecipherResult}</div>
           </div>
