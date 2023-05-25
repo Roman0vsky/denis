@@ -15,6 +15,18 @@ export default function Training() {
     formState: { errors: errors2 },
   } = useForm();
   const [caesarDecipherResult, setCaesarDecipherResult] = useState("");
+  const {
+    register: register3,
+    handleSubmit: handleSubmit3,
+    formState: { errors: errors3 },
+  } = useForm();
+  const [vigenereCipherResult, setVigenereCipherResult] = useState("");
+  const {
+    register: register4,
+    handleSubmit: handleSubmit4,
+    formState: { errors: errors4 },
+  } = useForm();
+  const [vigenereDecipherResult, setVigenereDecipherResult] = useState("");
 
   const ru = [
     "а",
@@ -296,7 +308,54 @@ export default function Training() {
     }
     return tempResult;
   }
+  function vigenereCipher(data) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numAlphabet = {};
+    for (let i = 0; i < alphabet.length; i++) {
+      numAlphabet[alphabet[i]] = i;
+    }
+    const key = data.key.trim();
+    const text = data.text.trim();
+    let code = "";
 
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === " ") {
+        code += " ";
+      } else {
+        code +=
+          alphabet[
+            (numAlphabet[text[i]] + numAlphabet[key[i % key.length]]) %
+              alphabet.length
+          ];
+      }
+    }
+    return code;
+  }
+  function vigenereDecipher(data) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numAlphabet = {};
+    for (let i = 0; i < alphabet.length; i++) {
+      numAlphabet[alphabet[i]] = i;
+    }
+    const key = data.key.trim();
+    const text = data.text.trim();
+    let code = "";
+
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === " ") {
+        code += " ";
+      } else {
+        code +=
+          alphabet[
+            (numAlphabet[text[i]] -
+              numAlphabet[key[i % key.length]] +
+              alphabet.length) %
+              alphabet.length
+          ];
+      }
+    }
+    return code;
+  }
   return (
     <div className="ciphers">
       <div className="ciphers__cipher_caesar-cipher cipher caesar-cipher">
@@ -315,8 +374,9 @@ export default function Training() {
                 {...register("text", {
                   required: "This field is required",
                   pattern: {
-                    value: /^[a-zA-Z]([a-zA-Z\s]+[a-zA-Z])*$/,
-                    message: "Text should contain only english letters and last char should be a letter",
+                    value: /^[a-zA-Z]([a-zA-Z\s]*)[a-zA-Z]*$/,
+                    message:
+                      "Text should contain only english letters and spaces",
                   },
                 })}
                 placeholder="Type text..."
@@ -353,8 +413,9 @@ export default function Training() {
                 {...register2("text", {
                   required: "This field is required",
                   pattern: {
-                    value: /^[a-zA-Z]([a-zA-Z\s]+[a-zA-Z])*$/,
-                    message: "Text should contain only english letters and last char should be a letter",
+                    value: /^[a-zA-Z]([a-zA-Z\s]*)[a-zA-Z]*$/,
+                    message:
+                      "Text should contain only english letters and spaces",
                   },
                 })}
                 placeholder="Type text..."
@@ -378,9 +439,93 @@ export default function Training() {
             <div className="form__result">{caesarDecipherResult}</div>
           </div>
         </div>
-      </div>
+        <p className="cipher__title">VIGENERE CIPHER</p>
+        <div className="cipher__container">
+          <div className="cipher__wrapper">
+            <p className="cipher__title-cipher">CIPHER</p>
+            <form
+              onSubmit={handleSubmit3((data) => {
+                setVigenereCipherResult(vigenereCipher(data));
+              })}
+              key="3"
+              className="cipher__form form"
+            >
+              <input
+                {...register3("text", {
+                  required: "This field is required",
+                  pattern: {
+                    value: /^[A-Z]([A-Z\s]*)[A-Z]*$/,
+                    message:
+                      "Text should contain only english capital letters and spaces",
+                  },
+                })}
+                placeholder="Type text..."
+                autoComplete="off"
+                className="form__input"
+              />
+              <p className="form__errors">{errors3.text?.message}</p>
+              <input
+                {...register3("key", {
+                  required: "This field is required",
+                  pattern: {
+                    value: /^[A-Z][A-Z]*$/,
+                    message:
+                    "Text should contain only english capital letters",
+                  },
+                })}
+                placeholder="Type key..."
+                autoComplete="off"
+                className="form__input"
+              />
+              <p className="form__errors">{errors3.key?.message}</p>
+              <input type="submit" value="Submit" className="form__submit" />
+            </form>
+            <div className="form__result">{vigenereCipherResult}</div>
+          </div>
 
-      
+          <div className="cipher__wrapper">
+            <p className="cipher__title-cipher">DECIPHER</p>
+            <form
+              onSubmit={handleSubmit4((data) => {
+                setVigenereDecipherResult(vigenereDecipher(data));
+              })}
+              key="4"
+              className="cipher__form form"
+            >
+              <input
+                {...register4("text", {
+                  required: "This field is required",
+                  pattern: {
+                    value: /^[A-Z]([A-Z\s]*)[A-Z]*$/,
+                    message:
+                      "Text should contain only english capital letters and spaces",
+                  },
+                })}
+                placeholder="Type text..."
+                autoComplete="off"
+                className="form__input"
+              />
+              <p className="form__errors">{errors4.text?.message}</p>
+              <input
+                {...register4("key", {
+                  required: "This field is required",
+                  pattern: {
+                    value: /^[A-Z][A-Z]*$/,
+                    message:
+                      "Text should contain only english capital letters",
+                  },
+                })}
+                placeholder="Choose shift"
+                autoComplete="off"
+                className="form__input"
+              />
+              <p className="form__errors">{errors4.key?.message}</p>
+              <input type="submit" value="Submit" className="form__submit" />
+            </form>
+            <div className="form__result">{vigenereDecipherResult}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

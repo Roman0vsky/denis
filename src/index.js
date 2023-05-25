@@ -1,10 +1,9 @@
-import React, { Children } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Info from "./components/Info/Info";
 import Main from "./components/Main/Main";
-import Audio from "./components/Audio/Audio";
 import Training from "./components/Training/Training";
 import Error from "./components/Error/Error";
 import Default from "./components/Default/Default";
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
       {
         path: "/info",
         element: <Info />,
-      },
-      {
-        path: "/audio",
-        element: <Audio />,
       },
       {
         path: "/training",
