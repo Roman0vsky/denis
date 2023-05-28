@@ -4,7 +4,7 @@ import "./Default.css"
 export default function Default() {
   return (
     <div className="default-page">
-      <h1>Click in navbar!</h1>
+      <h1>Кликните в панели навигации!</h1>
     </div>
   );
 }
