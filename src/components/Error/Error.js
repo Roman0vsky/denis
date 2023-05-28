@@ -8,16 +8,15 @@ export default function Error() {
   return (
     <div className="error-page">
       <header>
-        <nav>
-          <Link to="/main">Main</Link>
-          <Link to="/info">Info</Link>
-          <Link to="/audio">Audio</Link>
-          <Link to="/training">Training</Link>
+      <nav>
+          <Link to="/main">Главная</Link>
+          <Link to="/info">Информация</Link>
+          <Link to="/training">Тренажёр</Link>
         </nav>
       </header>
 
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
+      <h1>Упс!</h1>
+      <p>Извините, произошла непредвиденная ошибка.</p>
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
